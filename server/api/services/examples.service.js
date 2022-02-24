@@ -1,3 +1,4 @@
+import { user } from 'pg/lib/defaults';
 import l from '../../common/logger';
 import db from './examples.db.service';
 
@@ -14,6 +15,12 @@ class ExamplesService {
 
   create(name) {
     return db.insert(name);
+  }
+
+  getUser(username, password){
+    console.log(username);
+    console.log(password);
+    return db.getUser(username,password);
   }
 }
 

@@ -15,6 +15,15 @@ consumes:
 produces:
   - application/json
 
+components:
+  schemas:
+    User: 
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
 
 definitions:
   ExampleBody:
@@ -26,16 +35,42 @@ definitions:
       name:
         type: string
         example: no_stress
+  User: 
+    type: object
+    title: example
+    required:
+      - username
+      - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
 
 paths:
+  /get_user:
+    post:
+      description: Login validation
+      parameters:
+        - name: login
+          in: body
+          description: login validation
+          required: true
+          schema: 
+            $ref: "#/definitions/User"
+      responses:
+        200:
+          description: Status OK
+        401:
+          description: Error
   /examples:
     get:
       tags:
-        - Examples
-      description: Fetch all examples
+        - Users
+      description: Fetch all users
       responses:
         200:
-          description: Returns all examples
+          description: Returns all users
     post:
       tags:
         - Examples

@@ -17,5 +17,28 @@ export class Controller {
       res.status(201).location(`/api/v1/examples/${r.id}`).json(r)
     );
   }
+
+  getUser(req, res) {
+    ExamplesService.getUser(req.body.username, req.body.password).then((r) =>
+      // {
+
+      //   if (r) 
+      //   {
+      //     console.log(r);
+      //     res.status(201).json(r);}
+      //   else res.status(404).end();
+      // });
+      res.json(r))
+      .catch(err => {
+        console.log("error:--> ", err)
+        res.json(
+          {
+            code: err.response.status,
+            message: err.response.statusText,
+            data: err.response.data
+          }
+        )
+      })
+  }
 }
 export default new Controller();
