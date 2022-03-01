@@ -8,7 +8,7 @@ import l from './logger';
 import oas from './swagger';
 
 const app = new Express();
-
+const cors = require('cors');
 export default class ExpressServer {
   constructor() {
     const root = path.normalize(`${__dirname}/../..`);
@@ -23,6 +23,7 @@ export default class ExpressServer {
     app.use(bodyParser.text({ limit: process.env.REQUEST_LIMIT || '100kb' }));
     app.use(cookieParser(process.env.SESSION_SECRET));
     app.use(Express.static(`${root}/public`));
+    app.use(cors());
   }
 
   router(routes) {

@@ -46,9 +46,23 @@ definitions:
         type: string
       password:
         type: string
+  SF:
+    type: object
+    title: example
+    required:
+      - name
+      - description__c
+      - extid__c
+    properties:
+      name:
+        type: string
+      description__c:
+        type: string
+      extid__c:
+        type: string
 
 paths:
-  /get_user:
+  /examples/get_user:
     post:
       description: Login validation
       parameters:
@@ -63,6 +77,78 @@ paths:
           description: Status OK
         401:
           description: Error
+  /examples/try:
+    get:
+        tags:
+          - SF
+        description: Fetch all examples
+        responses:
+          200:
+            description: Returns all examples from heroku
+    post:
+        tags:
+          - SF
+        description: Insert new record
+        parameters:
+        - name: post
+          in: body
+          description: insert values
+          required: true
+          schema: 
+            $ref: "#/definitions/SF"
+        responses:
+          200:
+            description: Status OK
+          401:
+            description: Error
+        
+  /examples/try/{id}:
+    get:
+      tags:
+        - SF
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the example to retrieve
+          type: integer
+      responses:
+        200:
+          description: Return the example with the specified id
+        404:
+          description: Example not found
+    put:
+      tags:
+        - SF
+      parameters:
+        - name: put
+          in: body
+          description: update value by extid
+          required: true
+          schema: 
+            $ref: "#/definitions/SF"
+      responses:
+        200:
+          description: Return the example with the specified id
+        404:
+          description: Example not found
+      
+  /examples/try/del/{id}:
+    post:
+        tags:
+          - SF
+        description: Delete record
+        parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the example to delete
+          type: string
+        responses:
+          200:
+            description: Status OK
+          401:
+            description: Error
   /examples:
     get:
       tags:
