@@ -16,17 +16,16 @@ class ExamplesService {
     return db.getById(id);
   }
 
-  tryPost(name,desc,extid){
-    return db.tryPost(name,desc,extid);
+  tryPost(fname,lname,email,phone,extid){
+    return db.tryPost(fname,lname,email,phone,extid);
   }
 
   tryDel(id){
     return db.tryDel(id);
   }
 
-  tryPut(name,desc,id){
-    console.log("infdsg");
-    return db.tryPut(name,desc,id);
+  tryPut(fname,lname,email,phone,extid){
+    return db.tryPut(fname,lname,email,phone,extid);
   }
 
   byId(id) {

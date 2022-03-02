@@ -27,7 +27,7 @@ class ExamplesDatabase {
 
 
   async tryGet(){
-    const {rows}= await this._db.query('SELECT id, name, Description__c, extid__c FROM salesforce.example__c')
+    const {rows}= await this._db.query('select id,firstname, lastname, email, phone, extid__c from salesforce.contact')
     return Promise.resolve(rows);
   }
 
@@ -36,13 +36,13 @@ class ExamplesDatabase {
   }
 
   async getById(id){
-    const { rows } = await this._db.query(`SELECT id, name, Description__c, extid__c FROM salesforce.example__c where id = ${id}`);
+    const { rows } = await this._db.query(`select id,firstname, lastname, email, phone, extid__c from salesforce.contact where extid__c = '${id}'`);
     return Promise.resolve(rows);
   }
 
-  tryPost(name,desc,extid){
-    this._db.query('INSERT INTO salesforce.example__c(name, description__c, extid__c) values ($1, $2, $3)',
-      [name, desc, extid], (err, result) => {
+  tryPost(fname,lname,email,phone,extid){
+    this._db.query('INSERT INTO salesforce.contact(firstname, lastname, email, phone, extid__c) values ($1, $2, $3, $4, $5)',
+      [fname,lname,email,phone,extid], (err, result) => {
         if (err) {
           return err.stack;
         } else {
@@ -54,7 +54,7 @@ class ExamplesDatabase {
   }
 
   tryDel(id){
-    this._db.query('DELETE from salesforce.example__c where extid__c= $1',
+    this._db.query('DELETE from salesforce.contact where extid__c= $1',
     [id], (err, result) => {
       if (err) {
         return err.stack;
@@ -66,10 +66,9 @@ class ExamplesDatabase {
     return Promise.resolve(this._status);
   }
 
-  tryPut(name,desc,id){
-    console.log("enter");
-    this._db.query('UPDATE salesforce.example__c set name= $1, description__c= $2 where extid__c= $3',
-      [name, desc, id], (err, result) => {
+  tryPut(fname,lname,email,phone,extid){
+    this._db.query('UPDATE salesforce.contact set firstname= $1, lastname= $2, email= $3, phone= $4 where extid__c= $5',
+      [fname,lname,email,phone,extid], (err, result) => {
         if (err) {
           console.log(err.stack);
         } else {

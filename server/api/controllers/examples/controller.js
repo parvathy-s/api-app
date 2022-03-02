@@ -24,7 +24,7 @@ export class Controller {
   }
 
   tryPost(req,res){
-    ExamplesService.tryPost(req.body.name.trim(), req.body.description__c.trim(), req.body.extid__c.trim()).then((r) =>
+    ExamplesService.tryPost(req.body.firstname.trim(), req.body.lastname.trim(),req.body.email.trim(),req.body.phone, req.body.extid__c.trim()).then((r) =>
       res.status(201).send(r)
     );
   }
@@ -37,7 +37,7 @@ export class Controller {
   }
 
   tryPut(req,res){
-    ExamplesService.tryPut(req.body.name.trim(), req.body.description__c.trim(),req.body.extid__c.trim()).then((r) => {
+    ExamplesService.tryPut(req.body.firstname.trim(), req.body.lastname.trim(),req.body.email.trim(),req.body.phone,req.params.id).then((r) => {
       if (r) res.json(r);
       else res.status(404).end();
     });

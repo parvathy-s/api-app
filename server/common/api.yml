@@ -50,14 +50,20 @@ definitions:
     type: object
     title: example
     required:
-      - name
-      - description__c
+      - firstname
+      - lastname
+      - email
+      - phone
       - extid__c
     properties:
-      name:
+      firstname:
         type: string
-      description__c:
+      lastname:
         type: string
+      email:
+        type: string
+      phone:
+        type: integer
       extid__c:
         type: string
 
@@ -81,14 +87,14 @@ paths:
     get:
         tags:
           - SF
-        description: Fetch all examples
+        description: Fetch all contacts
         responses:
           200:
-            description: Returns all examples from heroku
+            description: Returns all contacts from heroku
     post:
         tags:
           - SF
-        description: Insert new record
+        description: Insert new contact record
         parameters:
         - name: post
           in: body
@@ -110,17 +116,22 @@ paths:
         - name: id
           in: path
           required: true
-          description: The id of the example to retrieve
-          type: integer
+          description: The extid of the contact to retrieve
+          type: string
       responses:
         200:
-          description: Return the example with the specified id
+          description: Return the contact with the specified id
         404:
-          description: Example not found
+          description: Contact not found
     put:
       tags:
         - SF
       parameters:
+        - name: id
+          in: path
+          required: true
+          description: The extid of the contact to update
+          type: string
         - name: put
           in: body
           description: update value by extid
@@ -142,7 +153,7 @@ paths:
         - name: id
           in: path
           required: true
-          description: The id of the example to delete
+          description: The extid of the conact to be deleted
           type: string
         responses:
           200:
